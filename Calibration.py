@@ -15,11 +15,12 @@ objp[:, :2] = np.mgrid[0:7, 0:7].T.reshape(-1, 2)
 objpoints = []  # 3d point in real world space
 imgpoints = []  # 2d points in image plane.
 
-path = 'C:\PRUEBA\Taller5\ImagenesTablero\Celular'
-#path = 'C:\PRUEBA\Taller5\ImagenesTablero\Portátil'
+#path = 'C:\PRUEBA\Taller5\ImagenesTablero\Celular\Tablero1'
+path = 'C:\PRUEBA\Taller5\ImagenesTablero\Celular\Tablero2'
+#path = 'C:\PRUEBA\Taller5\ImagenesTablero\Portatil'
 
-path_file = os.path.join(path, 'Ta*.jpg')
-#path_file = os.path.join(path, 'Tablero*.jpg')
+path_file = os.path.join(path, 'Ta*.jpeg')
+#path_file = os.path.join(path, 'Tablero*.jpeg')
 images = glob.glob(path_file)
 
 for fname in images:
@@ -58,7 +59,9 @@ for i in range(len(objpoints)):
 print("total error: {}".format(mean_error / len(objpoints)))
 
 # undistortion
-path_file = os.path.join(path, 'ta14.jpeg')
+path_file = os.path.join(path, 'Ta20.jpeg')
+#path_file = os.path.join(path, 'Tablero20.jpeg')
+#path_file = os.path.join(path, 'Tablero20.jpg')
 img = cv2.imread(path_file)
 h, w = img.shape[:2]
 newcameramtx, roi = cv2.getOptimalNewCameraMatrix(mtx, dist, (w, h), 1, (w, h))
@@ -76,7 +79,9 @@ cv2.imshow('distorted', img)
 cv2.imshow('calibresult', dst)
 cv2.waitKey(0)
 
-file_name = 'CalibrationCelularTablero1.json'
+#file_name = 'CalibrationCelularTablero1.json'
+file_name = 'CalibrationCelularTablero2.json'
+#file_name = 'CalibrationPortatilTablero.json'
 json_file = os.path.join(path, file_name)
 
 data = {
@@ -90,5 +95,3 @@ with open(json_file, 'w') as fp:
 with open(json_file) as fp:
     json_data = json.load(fp)
 print(json_data)
-
-
